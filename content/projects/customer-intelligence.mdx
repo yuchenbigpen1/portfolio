@@ -1,0 +1,121 @@
+---
+slug: customer-intelligence
+order: 4
+title: Customer Intelligence System
+descriptor: A 14-agent pipeline for CS teams flying blind
+role: Solo project
+timeframe: 2026
+liveUrl: https://github.com/yuchenbigpen1/customer_intelligence
+liveLabel: GitHub
+status: Open source
+blurb: |
+  Enterprise CS teams have dashboards, health scores, and churn prediction models, and still get blindsided. The signals that matter live in unstructured data nobody has time to synthesize. I built a 14-agent pipeline that does what a great CSM does intuitively but can't do consistently across 15+ accounts.
+tldr: |
+  Enterprise CS teams have dashboards, health scores, and churn prediction models. Yet they still get blindsided. That's because the signals that actually matter — a champion ghosting meetings, a new exec with a vendor consolidation playbook, a subtle shift in tone during a QBR — live in unstructured data nobody has time to synthesize. I built a 14-agent pipeline that does what a great CSM does intuitively, but can't do consistently across 15+ accounts.
+---
+
+Enterprise CS teams don't fail because they're bad at their jobs. They fail because the job is structurally broken. And nobody wants to admit it because the industry has spent a decade selling tools that were supposed to fix it.
+
+A CSM's real job is simple in theory: detect when customer value is at risk early enough to do something about it. Re-thread a relationship. Rebuild trust. Influence outcomes. But that only works with a 90 to 180 day window. By the time a health score turns red, you're not saving the account — you're negotiating the funeral.
+
+Here's what's funny: most CS organizations already have unified dashboards, health scores, and churn prediction models. They still get blindsided. Because dashboards surface lagging indicators. The early warning signs of preventable churn — a champion connecting with competitors on LinkedIn, a new executive with a history of vendor consolidation, a shift in how a customer talks about your product in meetings — live in unstructured data that no dashboard touches. They're not hidden. They're just in places nobody has time to look.
+
+CSMs spend roughly 60% of their time on manual sensing: checking dashboards, scanning emails, reviewing notes, hopping between systems. Another 20% interpreting what they found. Only about 10% goes to the one thing that actually retains customers — talking to the humans who decide whether to renew. The rest is expensive, skilled people doing work a machine should be doing.
+
+The humans aren't failing. They're doing machine work with human brains. And the machines are sitting right there.
+
+---
+
+## What I set out to build
+
+Gainsight's own philosophy is that if you're tracking the right data, a churn should never be a surprise. Every churn should either be one you saw coming and tried to prevent, or one you recognized as structural. It's a great philosophy. The problem is that "tracking the right data" has quietly come to mean tracking *structured* data — usage, logins, ticket counts — while the richest signals sit in conversations, emails, and external events that no system touches. It's like having a burglar alarm that only monitors the front door.
+
+The best CSMs already do this intuitively. They read between the lines in meetings. They notice when a champion's tone shifts. They Google the customer's new VP and think "this person consolidates vendors — we should be worried." They cross-reference what a customer *says* with what's *actually happening* at their company. It's not magic. It's pattern recognition across fragmented information. And it's exactly the kind of thing a great CSM does that nobody ever puts in a playbook.
+
+That intuition doesn't scale. A CSM juggling 15+ enterprise accounts can't do this consistently for all of them. But the underlying process — sense what's changing, interpret whether it matters, decide and act — can be modeled. So that's what I did.
+
+I built a Customer Intelligence System. Not another dashboard. Not a prediction model. A system that lets machines and humans each do what they're actually good at. Machines sense and interpret signals across fragmented data sources. Humans make judgment calls and influence outcomes. The system processes call transcripts, support tickets, CRM snapshots, job postings, earnings calls, and LinkedIn activity, and synthesizes it into evidence-backed intelligence — delivered when there's still time to act.
+
+---
+
+## What discovery revealed
+
+My initial assumption was the obvious one: the problem is siloed data. Get everything into one place. Better dashboards, better outcomes. Classic PM brain.
+
+Discovery revealed this was wrong. Most enterprise CS orgs already had unified dashboards. The real problem was more interesting: the signals that matter most don't live in structured fields. They live in the way a customer phrases something in a meeting, in the gap between what someone says and what's actually happening at their company, in patterns that only emerge when you hold internal conversations next to external events. Current tools track activity because it's easy to measure. They miss realized value and relationship strength because those are hard. And in CS, "hard to measure" apparently means "let's pretend it doesn't exist."
+
+This reframing changed everything about the solution design. The system needed to operate upstream of tools like Gainsight — not replacing the execution layer, but feeding it intelligence from the unstructured world that nobody had time to synthesize. Gainsight is the cockpit. This is the radar.
+
+---
+
+## The proof of concept
+
+To validate the architecture, I built a working end-to-end pipeline and ran it against a realistic enterprise scenario. The data is mocked — I didn't have access to actual internal systems — but the scenario, signal types, and system behaviors are modeled on real patterns from discovery. The point wasn't to prove it works on production data. It was to prove the hard part: can a multi-agent system actually make sense of messy, fragmented information and produce intelligence a CSM would trust enough to act on?
+
+The scenario: AutoNation, a $280K ARR enterprise customer with 127 days to renewal. Health score: 72. Status: green. A CSM glancing at Gainsight would see a minor usage dip, think "nothing urgent," and move on to the account that's actually on fire.
+
+The system found a different story.
+
+Internally, the customer had mentioned delaying a product pilot. Their team flagged discrepancies between the vendor's tracking and GA4. The champion was being pulled into "Q1 planning sessions" and missing meetings.
+
+Externally, that champion was connecting with competitors on LinkedIn. A new CMO had just joined — someone who reduced vendor spend by 25% at his previous company. The earnings call included language about consolidating the marketing technology stack. A job posting focused on vendor ROI evaluation.
+
+No single signal screams churn. But taken together, the picture is unmistakable: this account is quietly entering a vendor review that the CS team knows nothing about. The "Q1 planning" the champion is pulled into? Probably vendor evaluation sessions she's being excluded from. The GA4 discrepancy? Not a technical issue — it's the opening act of a data trust narrative that ends with "we don't need this tool anymore."
+
+The system surfaced this 26 days before it would have become visible through conventional means. That's the difference between saving a $280K account and writing a post-mortem about why nobody saw it coming.
+
+---
+
+## How the system works
+
+The pipeline has 14 specialized agents organized across five phases. Internal and external signals are processed independently, then converge only after validation. This matters because LLMs love finding connections — including ones that don't exist. Keeping the tracks separate until validation prevents the system from hallucinating its way into a false alarm.
+
+![Customer Intelligence System architecture](/case-studies/cis-system-diagram.png)
+
+![Agent topology and data flow](/case-studies/cis-flow-2.png)
+
+Phase one loads baseline customer context: who they are, what they're trying to achieve, who matters. Phase two extracts signals from internal data — call transcripts, notes, tickets — tagging each with confidence levels and evidence chains. Phase three does the same for external data: news, job postings, LinkedIn, earnings calls. Phase four is where it gets interesting: it compares internal and external signals, looking for dissonance. Phase five synthesizes everything into a brief a human can actually act on.
+
+Every generative step has a corresponding critic. Every claim needs evidence traced to a source and timestamp. Outputs are enforced through typed JSON schemas — Pydantic, because letting LLMs freestyle their output format is like letting your nephew do your taxes. The design principle throughout: LLMs generate hypotheses, not truth. Every claim must earn the right to exist.
+
+---
+
+## The pipeline in action
+
+![Pipeline trace — initial signal extraction](/case-studies/cis-action-1.png)
+
+Here's how the system actually reasoned through the AutoNation scenario. This is the part that makes it real.
+
+![Pipeline trace — initial overreach](/case-studies/cis-action-2.png)
+
+It initially flagged the champion missing meetings as high-confidence STAKEHOLDER_DISENGAGEMENT. The critic caught the overreach — missing one meeting because of Q1 planning is Tuesday, not treason.
+
+![Pipeline trace — confidence downgrade](/case-studies/cis-action-3.png)
+
+It downgraded confidence to medium, urgency to monitor.
+
+![Pipeline trace — external signals arrive](/case-studies/cis-action-4.png)
+
+Then external signals arrived. New CMO from CarMax with vendor consolidation expertise. A press release announcing a marketing stack review from 40+ vendors down to a "core set." The champion's LinkedIn showing competitor connections. Now the system converged both tracks and flagged a DISSONANCE finding at very_high confidence: the customer frames the champion's absence as routine, but the external world says otherwise.
+
+![Pipeline trace — final synthesized brief](/case-studies/cis-action-5.png)
+
+The final output was clear: new decision makers with no legacy vendor loyalty are evaluating everything from scratch. Your champion may not have a seat at the table anymore.
+
+This sequence is the whole thesis. A naive system would either miss the signal entirely or scream about stakeholder disengagement because someone skipped one meeting. This system did neither. It was appropriately skeptical when skepticism was warranted, then appropriately alarmed when converging evidence demanded it. That's the difference between a tool people use and a tool people mute.
+
+---
+
+## Why reliability is the whole game
+
+In enterprise CS, a single false positive destroys trust permanently. Tell a CSM an account is at risk when it's not, and they'll never believe you again. It's like the boy who cried wolf, except the boy costs $150K a year and the wolf is a $280K renewal. So the architecture is deliberately conservative. It surfaces intelligence only when confidence is high, time-to-act still exists, and a clear human action is available. It would rather miss a signal than hallucinate one. Alert fatigue kills adoption faster than missing features. If you've ever muted a Slack channel, you understand this intuitively.
+
+---
+
+## What this becomes
+
+What starts as early churn detection becomes something more fundamental: a living understanding of every customer's business — continuously updated, shared across CS, Sales, Product, and Leadership. Customer understanding stops living in people's heads and starts living in infrastructure. The company compounds learning instead of resetting every time someone changes roles or a CSM leaves and takes half the institutional knowledge with them.
+
+The technology to build this exists today. The question was never whether it was possible. It was whether someone would design it in a way that earns trust. That's what this system was built to do. Whether it works at scale is a different question — one that requires production data, real CSMs, and the kind of patience that venture capital doesn't usually have. But the architecture is sound, the POC proves the concept, and the code is open source if you want to kick the tires.
+
+*The full pipeline code is available on [GitHub](https://github.com/yuchenbigpen1/customer_intelligence).*

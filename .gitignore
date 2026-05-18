@@ -1,0 +1,17 @@
+node_modules
+.next
+out
+dist
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env*
+!.env.example
+.vercel
+
+# Local source archive (kept out of the public repo)
+# Already transformed into content/projects/*.mdx and public/case-studies/*
+/assets/
+/text.markdown
+/info.json
+/yuchen_resume.pdf

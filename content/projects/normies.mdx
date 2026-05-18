@@ -1,0 +1,73 @@
+---
+slug: normies
+order: 3
+title: Normies
+descriptor: Claude Code for people who aren't engineers
+role: Solo project
+timeframe: 2025–present
+liveUrl: https://www.normies.work
+liveLabel: normies.work
+status: Open source
+blurb: |
+  The people closest to the problems are the furthest from the tools. Developer tools assume you're a developer. No-code caps at toy complexity. Normies wraps AI coding agents in a desktop app with a project-based workflow, a "Don't Build" gate, and three-layer verification. You describe the problem. The system plans it, builds it, and verifies it works.
+tldr: |
+  The people closest to the problems are the furthest from the tools. Developer tools assume you're a developer. No-code tools cap at toy complexity. Normies wraps AI coding agents in a desktop app with a project-based workflow, a "Don't Build" gate that recommends existing tools when custom code isn't needed, and three-layer verification where independent agents check each other's work. You describe the problem in plain English. The system plans it, builds it, and verifies it actually works.
+---
+
+## Why this exists
+
+AI coding agents are powerful. Claude Code, OpenAI Codex — they can build APIs, automations, full applications. But they're built for engineers. If you don't know what a repository is, or how to read an error message, or what "run the tests" means, these tools are a Ferrari with no steering wheel.
+
+Normies is the steering wheel.
+
+It wraps AI coding agents in a desktop app that speaks your language, guides you through decisions, and handles the technical complexity behind the scenes. You bring the idea and the business context. Normies handles the engineering.
+
+This isn't a no-code tool. No-code tools cap at toy complexity. Normies has the full power of AI coding agents underneath — it just makes that power usable.
+
+This isn't a chatbot. Chatbots give you answers. Normies builds working systems, connected to your real tools, tested and verified.
+
+## Who it's for
+
+Business owners, operators, and professionals who know exactly what they need but can't build it themselves. People who are tired of paying developers $5,000 for a simple automation, have tried no-code tools and hit the ceiling, and want real solutions instead of advice.
+
+Not for engineers who want a better IDE. Use Claude Code or Codex directly — they're great. Normies is for the people who would never open a terminal.
+
+## How it works
+
+1. **Describe what you want.** Start a conversation. Normies evaluates whether your request is clear or vague. Vague requests trigger a guided flow: current reality, desired outcome, who's involved, how information flows, rules and constraints. Real requirements gathering, in plain language.
+
+2. **Get an honest recommendation.** Before building anything, the system considers whether a SaaS tool, no-code platform, or existing integration already solves your problem. The best outcome isn't always custom code.
+
+3. **Review the plan.** The system researches the technical approach, then produces a plain-language blueprint with a visual architecture diagram and "Done when" criteria for each task. Hit Review and an independent model acts as a critic on the proposed approach, catching things you wouldn't know to question.
+
+4. **Watch it get built.** Approve the plan and Normies creates a project. Tasks are decomposed, dependencies computed, work grouped into parallel execution waves. Each task runs in its own fresh session. You see progress in real time: which tasks are running, which are complete, what each one accomplished.
+
+5. **Verified, not just "done".** Each task has observable acceptance criteria defined during planning. The executor builds toward them using TDD. Then an independent verifier checks backward from those criteria: does each artifact exist, is it real code, is it actually wired into the system. Tests passing is necessary but not sufficient.
+
+6. **Get the handoff.** A plain-language summary of what was built and how to use it.
+
+## Key design decisions
+
+**Project-based, not conversation-based.** Most AI coding tools are conversation-based. You chat, the AI does things, you chat more. That works for small tasks. For anything complex, you lose track of state around message #30. Normies imposes a project-based workflow with visible steps, progress tracking, and plain-language summaries — the scaffolding that engineers carry in their heads, made explicit.
+
+**Fresh sessions per task.** Every task gets its own isolated session with a full context window. Planning is separate from building is separate from verification. Task #15 gets the same AI quality as task #1.
+
+**Mutual distrust between agents.** The planner defines what done looks like. The executor builds toward it. The verifier checks whether it was achieved. Three agents, three stages, none trusts the others. The planner doesn't know how it'll be built. The executor doesn't get to define "done." The verifier doesn't trust test results or completion summaries.
+
+**Plain language, always.** "Where your data lives" not "database." "The part that handles logins" not "authentication middleware." Errors are learning moments, not stack traces. Difficulty is flagged honestly.
+
+## Built on
+
+Normies is built on [Craft Agents](https://github.com/lukilabs/craft-agents-oss) — an open-source Electron app powered by the Claude Agent SDK that handles session management, permissions, MCP integrations, and UI infrastructure — and adopts execution patterns from [GSD](https://github.com/gsd-build/get-shit-done): fresh sessions per task, XML-structured task specs, parallel execution waves, multi-agent orchestration. On top of that foundation, Normies adds the guided requirements flow, the "Don't Build" gate, plan review, three-layer verification, and the plain-language layer that makes the system usable by non-engineers.
+
+Stack: Electron, React, TypeScript, Claude Agent SDK, MCP.
+
+[View source on GitHub →](https://github.com/yuchenbigpen1/normies)
+
+## Philosophy
+
+Most AI tools try to make engineering disappear. That's dishonest. Engineering is hard, and pretending it isn't sets people up for frustration.
+
+Normies takes the other approach: make engineering accessible, not invisible. You understand what's being built, why decisions are being made, what the trade-offs are. You just don't need a CS degree to participate.
+
+The technical friend everyone wishes they had.

@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f7f4ec;
+  --color-surface: #ffffff;
+  --color-ink: #18181b;
+  --color-ink-mute: #52525b;
+  --color-ink-soft: #71717a;
+  --color-rule: #e6dfce;
+  --color-rule-soft: #efe9da;
+  --color-accent: #a8324a;
+  --color-accent-bg: #f3e3e3;
+
+  --font-display: var(--font-geist-sans);
+  --font-body: var(--font-geist-sans);
+  --font-prose: var(--font-newsreader);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-feature-settings: "ss01", "ss03", "cv11";
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Mono numerals everywhere mono is applied */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* Prose styles for long-form case-study body (Newsreader serif) */
+.prose-editorial {
+  font-family: var(--font-prose), Georgia, serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+
+.prose-editorial > * + * {
+  margin-top: 1.3em;
+}
+
+.prose-editorial h1,
+.prose-editorial h2,
+.prose-editorial h3,
+.prose-editorial h4 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.prose-editorial p,
+.prose-editorial li,
+.prose-editorial blockquote {
+  text-wrap: pretty;
+}
+
+.prose-editorial h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+}
+
+.prose-editorial h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.1;
+}
+
+.prose-editorial h3 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  margin-top: 1.8em;
+}
+
+.prose-editorial a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 160ms;
+}
+
+.prose-editorial a:hover {
+  color: var(--color-accent);
+}
+
+.prose-editorial strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-editorial em {
+  font-style: italic;
+}
+
+.prose-editorial blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--color-ink-mute);
+  margin-left: 0;
+}
+
+.prose-editorial blockquote p {
+  margin: 0;
+}
+
+.prose-editorial blockquote + blockquote {
+  margin-top: 0.6em;
+}
+
+.prose-editorial ul,
+.prose-editorial ol {
+  padding-left: 1.4em;
+}
+
+.prose-editorial ul {
+  list-style: none;
+}
+
+.prose-editorial ul > li {
+  position: relative;
+  padding-left: 0.2em;
+}
+
+.prose-editorial ul > li::before {
+  content: "—";
+  position: absolute;
+  left: -1.4em;
+  color: var(--color-ink-soft);
+}
+
+.prose-editorial ol {
+  list-style: decimal;
+}
+
+.prose-editorial ol > li::marker {
+  color: var(--color-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.prose-editorial li + li {
+  margin-top: 0.5em;
+}
+
+.prose-editorial hr {
+  border: none;
+  height: 1px;
+  background: var(--color-rule);
+  margin: 3em 0;
+}
+
+.prose-editorial table {
+  width: 100%;
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 14px;
+  margin: 1.5em 0;
+}
+
+.prose-editorial table th {
+  text-align: left;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  padding: 0.75rem 0.75rem 0.75rem 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.prose-editorial table td {
+  padding: 0.75rem 0.75rem 0.75rem 0;
+  border-bottom: 1px solid var(--color-rule-soft);
+  vertical-align: top;
+  color: var(--color-ink);
+}
+
+.prose-editorial table tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-editorial code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-rule-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.prose-editorial pre {
+  font-family: var(--font-mono);
+  background: var(--color-ink);
+  color: #fafaf7;
+  padding: 1.25rem 1.5rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.prose-editorial pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose-editorial figure {
+  margin: 2em -1rem;
+}
+
+@media (min-width: 768px) {
+  .prose-editorial figure {
+    margin: 2.4em -3rem;
+  }
+}
+
+.prose-editorial figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;
+  box-shadow: 0 30px 60px -30px rgba(24, 24, 27, 0.12),
+              0 10px 24px -16px rgba(168, 50, 74, 0.08);
+}
+
+.prose-editorial figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+}
