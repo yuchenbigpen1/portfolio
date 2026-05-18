@@ -8,6 +8,7 @@ next-env.d.ts
 .env*
 !.env.example
 .vercel
+.claude/
 
 # Local source archive (kept out of the public repo)
 # Already transformed into content/projects/*.mdx and public/case-studies/*
