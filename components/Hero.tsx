@@ -39,8 +39,8 @@ const links: { label: string; href: string; external?: boolean }[] = [
 
 const metaLines = [
   "Babson '18 · MMAI & MMIE @ Queen's University",
-  "Stand-up, improv, yoga, sim racing",
-  "Currently building Donna in private beta",
+  "I love building things and performing comedy",
+  "Currently building Donna",
 ];
 
 export function Hero() {
@@ -66,8 +66,8 @@ export function Hero() {
         {/* Left column — text content */}
         <div className="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col gap-7 md:gap-9">
           {/* Name — masked reveal */}
-          <h1 className="font-display font-medium text-3xl md:text-4xl tracking-[-0.02em] text-ink text-balance">
-            <MaskReveal delay={TIMING.name}>Yuchen Zhang.</MaskReveal>
+          <h1 className="font-display font-medium text-[clamp(2.75rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.03em] text-ink text-balance">
+            <MaskReveal delay={TIMING.name}>Yuchen Zhang</MaskReveal>
           </h1>
 
           {/* Link rail */}
@@ -130,14 +130,14 @@ export function Hero() {
           initial={{ opacity: 0, y: reduced ? 0 : 18, scale: reduced ? 1 : 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ ...SPRING, delay: TIMING.portrait }}
-          className="col-span-12 md:col-span-5 lg:col-span-4 md:justify-self-end w-full max-w-[280px] md:max-w-[320px]"
+          className="col-span-12 md:col-span-4 lg:col-span-3 md:justify-self-end w-full max-w-[200px] md:max-w-[220px] lg:max-w-[240px]"
         >
           <div className="relative aspect-[3/4] overflow-hidden rounded-[2px] bg-rule-soft outline outline-1 -outline-offset-1 outline-black/10">
             <Image
               src="/yuchen.jpg"
               alt="Yuchen Zhang"
               fill
-              sizes="(min-width: 1024px) 320px, (min-width: 768px) 280px, 280px"
+              sizes="(min-width: 1024px) 240px, (min-width: 768px) 220px, 200px"
               className="object-cover saturate-[0.94] contrast-[1.015]"
               priority
             />

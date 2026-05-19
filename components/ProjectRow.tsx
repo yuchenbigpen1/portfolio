@@ -90,34 +90,56 @@ export function ProjectRow({
         </motion.span>
       </motion.span>
 
-      {/* Index — confident display numeral */}
-      <div className="col-span-12 md:col-span-1 mb-4 md:mb-0">
-        <span className="font-mono text-[26px] md:text-[30px] leading-none tracking-[-0.02em] text-ink-soft/55 group-hover:text-accent transition-colors duration-500 tabular-nums">
+      {/* Index — sits on the title's first baseline */}
+      <div className="col-span-12 md:col-span-1 mb-4 md:mb-0 md:pt-[6px]">
+        <span className="font-mono text-[22px] md:text-[24px] leading-none tracking-[-0.02em] text-ink-soft/55 group-hover:text-accent transition-colors duration-500 tabular-nums">
           {num}
         </span>
       </div>
 
-      {/* Title + descriptor */}
-      <div className="col-span-12 md:col-span-4 mb-4 md:mb-0">
+      {/* Title + descriptor + meta */}
+      <div className="col-span-12 md:col-span-5 mb-4 md:mb-0">
         <h3
-          className="font-display font-medium text-ink leading-[1.02] tracking-[-0.028em] text-balance transition-transform duration-500 ease-out group-hover:translate-x-[3px]"
-          style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)" }}
+          className="font-display font-medium text-ink leading-[1.05] tracking-[-0.025em] text-balance transition-transform duration-500 ease-out group-hover:translate-x-[3px]"
+          style={{ fontSize: "clamp(1.5rem, 2.4vw, 2rem)" }}
         >
           {project.title}
         </h3>
         <p
-          className="mt-2.5 text-[16px] md:text-[17px] leading-[1.45] text-ink-mute text-pretty"
+          className="mt-2 text-[15.5px] md:text-[16px] leading-[1.45] text-ink-mute text-pretty"
           style={{ fontFamily: "var(--font-prose)", fontStyle: "italic" }}
         >
           {project.descriptor}
         </p>
-        {project.status && (
-          <StatusLabel status={project.status} />
+        {(project.status || project.liveUrl) && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[10.5px] uppercase tracking-[0.16em]">
+            {project.status && (
+              <span className="inline-flex items-center gap-2 text-accent">
+                <span aria-hidden className="block h-px w-3 bg-accent/60" />
+                <span>{project.status}</span>
+              </span>
+            )}
+            {project.status && project.liveUrl && (
+              <span aria-hidden className="text-ink-soft/45">·</span>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={(e) => e.stopPropagation()}
+                className="relative z-10 inline-flex items-center gap-1.5 text-ink-soft hover:text-accent transition-colors"
+              >
+                <span>{project.liveLabel}</span>
+                <ArrowUpRight size={10} weight="regular" />
+              </a>
+            )}
+          </div>
         )}
       </div>
 
       {/* Blurb */}
-      <div className="col-span-12 md:col-span-5 md:pr-6">
+      <div className="col-span-12 md:col-span-4 md:pr-6">
         <p className="text-[14.5px] md:text-[15px] leading-[1.55] text-ink-mute max-w-[54ch] text-pretty">
           {project.blurb}
         </p>
@@ -141,18 +163,6 @@ export function ProjectRow({
             className="-rotate-90 transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:rotate-0"
           />
         </Link>
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={(e) => e.stopPropagation()}
-            className="relative z-10 inline-flex items-center gap-1.5 text-ink-soft hover:text-accent transition-colors"
-          >
-            <span>{project.liveLabel}</span>
-            <ArrowUpRight size={11} weight="regular" />
-          </a>
-        )}
       </div>
 
       {/* Make the entire row clickable to the sub-page */}
@@ -165,14 +175,5 @@ export function ProjectRow({
         <span className="sr-only">{project.title}</span>
       </Link>
     </motion.article>
-  );
-}
-
-function StatusLabel({ status }: { status: string }) {
-  return (
-    <div className="mt-4 inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-accent">
-      <span aria-hidden className="block h-px w-3 bg-accent/60" />
-      <span>{status}</span>
-    </div>
   );
 }
